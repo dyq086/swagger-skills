@@ -1,32 +1,34 @@
+[English](README.md) | [中文](README.zh-CN.md)
+
 # Swagger Skills
 
-通过 shell 脚本查询 Swagger/OpenAPI 文档，获取模块列表、接口列表及完整类型定义（含 `$ref` 解析）。
+Query Swagger/OpenAPI docs via shell scripts to get module list, API list, and full type definitions (including `$ref` resolution).
 
-适用于 Cursor Skills、Codex Skills 或任何需要从 Swagger 文档获取 API schema 的场景。
+For Cursor Skills, Codex Skills, or any scenario that needs API schema from Swagger docs.
 
-## 依赖
+## Dependencies
 
 - `curl`
 - `jq` (1.6+)
 
-## 安装
+## Installation
 
 ```bash
-# 克隆或复制到 skills 目录
-# 项目级: .cursor/skills/swagger-skills/
-# 全局: ~/.cursor/skills/swagger-skills/
+# Clone or copy to skills directory
+# Project-level: .cursor/skills/swagger-skills/
+# Global: ~/.cursor/skills/swagger-skills/
 git clone https://github.com/dyq086/swagger-skills.git .cursor/skills/swagger-skills
 ```
 
-## 配置
+## Configuration
 
-复制配置模板并填写你的 Swagger 地址：
+Copy the config template and fill in your Swagger URL:
 
 ```bash
 cp swagger.config.example.json swagger.config.json
 ```
 
-编辑 `swagger.config.json`：
+Edit `swagger.config.json`:
 
 ```json
 {
@@ -35,56 +37,56 @@ cp swagger.config.example.json swagger.config.json
 }
 ```
 
-## 脚本用法
+## Script Usage
 
-| 脚本 | 说明 |
-|------|------|
-| `get-modules.sh` | 获取所有模块（tags） |
-| `get-apis.sh <module>` | 获取指定模块下的接口列表 |
-| `get-api.sh <path> <method>` | 获取单个接口的完整 schema |
+| Script | Description |
+|--------|-------------|
+| `get-modules.sh` | Get all modules (tags) |
+| `get-apis.sh <module>` | Get API list for a module |
+| `get-api.sh <path> <method>` | Get full schema for a single API |
 
 ```bash
-# 1. 查模块
+# 1. List modules
 ./scripts/get-modules.sh
 
-# 2. 查某模块的接口
+# 2. List APIs in a module
 ./scripts/get-apis.sh 用户管理
 
-# 3. 查单个接口详情
+# 3. Get single API details
 ./scripts/get-api.sh /api/user/list get
 ```
 
-## 输出示例
+## Output Examples
 
 **get-modules** → `[{name, description}, ...]`
 
 **get-apis** → `[{path, method, summary}, ...]`
 
-**get-api** → `{path, method, summary, parameters, requestBody, responseType, operation}`，其中 `requestBody` 和 `responseType` 已解析 `$ref` 为完整 schema。
+**get-api** → `{path, method, summary, parameters, requestBody, responseType, operation}` — `requestBody` and `responseType` have `$ref` resolved to full schema.
 
-## 提问示例
+## Query Examples
 
-可通过以下方式触发（自然语言或关键词）：
+Trigger with natural language or keywords:
 
-**查模块列表**
-- 查一下 swagger 里有哪些模块
+**List modules**
+- What modules are in swagger?
 - getModules
-- 列出 OpenAPI 文档的所有 tags
+- List all tags from OpenAPI docs
 
-**查某模块的接口**
-- 用户模块下有哪些接口？
+**List APIs in a module**
+- What APIs are in the user module?
 - getApis 用户管理
-- 订单相关的 API 列表
+- List order-related APIs
 
-**查单个接口详情**
-- 查 `/api/user/list` 的 GET 接口
+**Get single API details**
+- Get the GET API for `/api/user/list`
 - getApi /api/user/list get
-- 创建用户接口的请求参数和返回值是什么？
-- `/api/order/{id}` 的 PUT 接口返回什么类型？
+- What are the request params and return type for the create user API?
+- What does the PUT `/api/order/{id}` return?
 
-**组合查询**
-- 先列出所有模块，再查用户模块的接口
-- 查用户模块里删除接口的 schema
+**Combined queries**
+- List all modules, then get APIs for the user module
+- Get the schema for the delete API in the user module
 
 ## License
 
