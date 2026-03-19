@@ -2,14 +2,13 @@
 
 # Swagger Skills
 
-通过 shell 脚本查询 Swagger/OpenAPI 文档，获取模块列表、接口列表及完整类型定义（含 `$ref` 解析）。
+通过 Python 脚本查询 Swagger/OpenAPI 文档，获取模块列表、接口列表及完整类型定义（含 `$ref` 解析）。
 
 适用于 Cursor Skills、Codex Skills 或任何需要从 Swagger 文档获取 API schema 的场景。
 
 ## 依赖
 
-- `curl`
-- `jq` (1.6+)
+- Python 3.9+
 
 ## 安装
 
@@ -41,19 +40,19 @@ cp swagger.config.example.json swagger.config.json
 
 | 脚本 | 说明 |
 |------|------|
-| `get-modules.sh` | 获取所有模块（tags） |
-| `get-apis.sh <module>` | 获取指定模块下的接口列表 |
-| `get-api.sh <path> <method>` | 获取单个接口的完整 schema |
+| `get-modules.py` | 获取所有模块（tags） |
+| `get-apis.py <module>` | 获取指定模块下的接口列表 |
+| `get-api.py <path> <method>` | 获取单个接口的完整 schema |
 
 ```bash
 # 1. 查模块
-./scripts/get-modules.sh
+python3 scripts/get-modules.py
 
 # 2. 查某模块的接口
-./scripts/get-apis.sh 用户管理
+python3 scripts/get-apis.py 用户管理
 
 # 3. 查单个接口详情
-./scripts/get-api.sh /api/user/list get
+python3 scripts/get-api.py /api/user/list get
 ```
 
 ## 输出示例

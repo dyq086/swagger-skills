@@ -2,14 +2,13 @@
 
 # Swagger Skills
 
-Query Swagger/OpenAPI docs via shell scripts to get module list, API list, and full type definitions (including `$ref` resolution).
+Query Swagger/OpenAPI docs via Python scripts to get module list, API list, and full type definitions (including `$ref` resolution).
 
 For Cursor Skills, Codex Skills, or any scenario that needs API schema from Swagger docs.
 
 ## Dependencies
 
-- `curl`
-- `jq` (1.6+)
+- Python 3.9+
 
 ## Installation
 
@@ -41,19 +40,19 @@ Edit `swagger.config.json`:
 
 | Script | Description |
 |--------|-------------|
-| `get-modules.sh` | Get all modules (tags) |
-| `get-apis.sh <module>` | Get API list for a module |
-| `get-api.sh <path> <method>` | Get full schema for a single API |
+| `get-modules.py` | Get all modules (tags) |
+| `get-apis.py <module>` | Get API list for a module |
+| `get-api.py <path> <method>` | Get full schema for a single API |
 
 ```bash
 # 1. List modules
-./scripts/get-modules.sh
+python3 scripts/get-modules.py
 
 # 2. List APIs in a module
-./scripts/get-apis.sh 用户管理
+python3 scripts/get-apis.py 用户管理
 
 # 3. Get single API details
-./scripts/get-api.sh /api/user/list get
+python3 scripts/get-api.py /api/user/list get
 ```
 
 ## Output Examples

@@ -1,18 +1,17 @@
 ---
 name: swagger-skills
-description: Queries Swagger/OpenAPI docs via shell scripts. Use when fetching API modules (tags), listing APIs by module, or getting full API schema (params, requestBody, responseType with $ref resolved). Trigger on swagger, OpenAPI, API docs, getModules, getApis, getApi, get-modules, get-apis, get-api, or API schema lookup.
+description: Queries Swagger/OpenAPI docs via Python scripts. Use when fetching API modules (tags), listing APIs by module, or getting full API schema (params, requestBody, responseType with $ref resolved). Trigger on swagger, OpenAPI, API docs, getModules, getApis, getApi, get-modules, get-apis, get-api, or API schema lookup.
 ---
 
 # Swagger Skills
 
-通过 shell 脚本查询 Swagger/OpenAPI 文档，获取模块列表、接口列表及完整类型定义。
+通过 Python 脚本查询 Swagger/OpenAPI 文档，获取模块列表、接口列表及完整类型定义。
 
 **触发关键词**：swagger、OpenAPI、API 文档、getModules、getApis、getApi、get-modules、get-apis、get-api
 
 ## 前置依赖
 
-- `curl`
-- `jq` (1.6+)
+- Python 3.9+
 
 ## 配置
 
@@ -25,35 +24,35 @@ description: Queries Swagger/OpenAPI docs via shell scripts. Use when fetching A
 }
 ```
 
-脚本默认读取 `scripts/../swagger.config.json`，可传入第三个参数指定配置路径。
+脚本默认读取 `scripts/../swagger.config.json`，可传入可选参数指定配置路径。
 
 ## 脚本用法
 
-### 1. get-modules.sh — 获取所有模块
+### 1. get-modules.py — 获取所有模块
 
 ```bash
-./scripts/get-modules.sh [config_path]
+python3 scripts/get-modules.py [config_path]
 ```
 
 输出：`[{name, description}, ...]`
 
-### 2. get-apis.sh — 获取某模块下的接口列表
+### 2. get-apis.py — 获取某模块下的接口列表
 
 ```bash
-./scripts/get-apis.sh <module> [config_path]
+python3 scripts/get-apis.py <module> [config_path]
 ```
 
-示例：`./scripts/get-apis.sh 用户管理`
+示例：`python3 scripts/get-apis.py 用户管理`
 
 输出：`[{path, method, summary}, ...]`
 
-### 3. get-api.sh — 获取单个接口的类型信息
+### 3. get-api.py — 获取单个接口的类型信息
 
 ```bash
-./scripts/get-api.sh <path> <method> [config_path]
+python3 scripts/get-api.py <path> <method> [config_path]
 ```
 
-示例：`./scripts/get-api.sh /api/user/list get`
+示例：`python3 scripts/get-api.py /api/user/list get`
 
 输出：`{path, method, summary, description, parameters, requestBody, responseType, operation}`
 
@@ -61,9 +60,9 @@ description: Queries Swagger/OpenAPI docs via shell scripts. Use when fetching A
 
 ## 使用流程
 
-1. **查模块**：`get-modules.sh` → 得到模块名
-2. **查接口列表**：`get-apis.sh <module>` → 得到 path + method
-3. **查接口详情**：`get-api.sh <path> <method>` → 得到参数、请求体、响应类型
+1. **查模块**：`get-modules.py` → 得到模块名
+2. **查接口列表**：`get-apis.py <module>` → 得到 path + method
+3. **查接口详情**：`get-api.py <path> <method>` → 得到参数、请求体、响应类型
 
 ## 错误处理
 
