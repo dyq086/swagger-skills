@@ -1,0 +1,4 @@
+{
+  "swaggerUrl": "http://your-api/v3/api-docs",
+  "token": "optional-auth-token"
+}
